@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Keeping Buddy</title>
+    <link
+      href="https://apply.holbertonschool.com/level2/school.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="housekeeping.css" />
+  </head>
+  <body>
+    <header id="navigator">
+      <ul>
+        <li>
+          <a href="./index.html">Home</a>
+        </li>
+        <li>
+          <a href="./housekeeping.html">Housekeeping Helper</a>
+        </li>
+        <li>
+          <a href="./worklogCalculator.html">Worklog Calculator</a>
+        </li>
+      </ul>
+    </header>
+    <main>
+      <div id="form">
+        <h3>Trolley Loader!</h3>
+        <div>
+          <form name="unitsToClean" onsubmit="formResults()">
+            <label for="whichUnits"
+              >Specify the number of the units that need to be cleaned</label
+            >
+            <p>
+              Please enter the units number separated by a space for example: 9
+              34 11
+            </p>
+            <div id="inputs">
+              <input
+                required
+                type="text"
+                name="whichUnits"
+                id="whichUnits"
+                placeholder="9 34 11"
+              />
+              <!-- after entering the units to clean for the day -->
+              <!-- we will insert into the div with id 'formResults' -->
+              <!-- the number of resources the housekeeper needs to carry on the trolley -->
+              <input type="submit" value="Submit" id="formEnter" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="assetsToTake">
+        <h2>You must load the trolley with the following items:</h2>
+        <ul id="resultList"></ul>
+        <!-- <p id="unitsEntered"></p> -->
+        <input type="button" value="Reset" id="resetFlow" />
+      </div>
+    </main>
+
+    <script src="./housekeepingScript.js"></script>
+  </body>
+</html>

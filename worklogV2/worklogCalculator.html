@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculate your working hours!</title>
+    <link
+      href="https://apply.holbertonschool.com/level2/school.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="worklogCalculator.css" />
+  </head>
+  <body>
+    <header id="navigator">
+      <ul>
+        <li>
+          <a href="./index.html">Home</a>
+        </li>
+        <li>
+          <a href="./housekeeping.html">Housekeeping Helper</a>
+        </li>
+        <li>
+          <a href="./worklogCalculator.html">Worklog Calculator</a>
+        </li>
+      </ul>
+    </header>
+    <main>
+      <div id="instructions">
+        <h1>Worklog Calculator</h1>
+        <p>
+          The idea is to help calculate the working hours to ensure a fair
+          payment
+        </p>
+        <p>
+          <span style="font-weight: bold">If you dont take a lunch </span>or any
+          kind of break just leave them blank as they are and
+          <span style="font-weight: bold">
+            only enter Work Start Time and Work Finish Time
+          </span>
+        </p>
+        <p>
+          <span style="font-weight: bold"
+            >If you did not work for a day enter 00:00 am for all the times for
+            that day.</span
+          >
+          (working on this feature)
+        </p>
+      </div>
+
+      <form id="grid" name="worklogForm" onsubmit="calculateWorklog()">
+        <table id="headers">
+          <tr>
+            <th class="weekDayTitle">Day</th>
+            <th class="weekDayTitle">Monday</th>
+            <th class="weekDayTitle">Tuesday</th>
+            <th class="weekDayTitle">Wednesday</th>
+            <th class="weekDayTitle">Thursday</th>
+            <th class="weekDayTitle">Friday</th>
+            <th class="weekDayTitle">Saturday</th>
+            <th class="weekDayTitle">Sunday</th>
+          </tr>
+          <tr id="rows">
+            <td id="startTime">Start Time</td>
+            <td>
+              <input
+                type="time"
+                name="mondayTime"
+                id="mondayTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="tuesdayTime"
+                id="tuesdayTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="wednesdayTime"
+                id="wednesdayTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="thursdayTime"
+                id="thursdayTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="fridayTime"
+                id="fridayTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="saturdayTime"
+                id="saturdayTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="sundayTime"
+                id="sundayTime"
+                class="timeInput"
+              />
+            </td>
+          </tr>
+          <tr id="lunchStartTimeRow">
+            <td id="lunchStart">Lunch Start Time</td>
+            <td id="mondayLunchTimeData">
+              <input
+                type="time"
+                name="mondayLunchTime"
+                id="mondayLunchTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="tuesdayLunchTime"
+                id="tuesdayLunchTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="wednesdayLunchTime"
+                id="wednesdayLunchTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="thursdayLunchTime"
+                id="thursdayLunchTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="fridayLunchTime"
+                id="fridayLunchTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="saturdayLunchTime"
+                id="saturdayLunchTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="sundayLunchTime"
+                id="sundayLunchTime"
+                class="timeInput"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td id="lunchFinish">Lunch Finish Time</td>
+            <td>
+              <input
+                type="time"
+                name="mondayLunchTimeFinish"
+                id="mondayLunchTimeFinish"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="tuesdayLunchTimeFinish"
+                id="tuesdayLunchTimeFinish"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="wednesdayLunchTimeFinish"
+                id="wednesdayLunchTimeFinish"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="thursdayLunchTimeFinish"
+                id="thursdayLunchTimeFinish"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="fridayLunchTimeFinish"
+                id="fridayLunchTimeFinish"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="saturdayLunchTimeFinish"
+                id="saturdayLunchTimeFinish"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="sundayLunchTimeFinish"
+                id="sundayLunchTimeFinish"
+                class="timeInput"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td id="endTime">Finished Work Time</td>
+            <td>
+              <input
+                type="time"
+                name="mondayWorkFinishTime"
+                id="mondayWorkFinishTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="tuesdayWorkFinishTime"
+                id="tuesdayWorkFinishTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="wednesdayWorkFinishTime"
+                id="wednesdayWorkFinishTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="thursdayWorkFinishTime"
+                id="thursdayWorkFinishTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="fridayWorkFinishTime"
+                id="fridayWorkFinishTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="saturdayWorkFinishTime"
+                id="saturdayWorkFinishTime"
+                class="timeInput"
+              />
+            </td>
+            <td>
+              <input
+                type="time"
+                name="sundayWorkFinishTime"
+                id="sundayWorkFinishTime"
+                class="timeInput"
+              />
+            </td>
+          </tr>
+          <tr id="totalTimeWorked">
+            <td>Total Time Worked:</td>
+          </tr>
+        </table>
+      </form>
+      <div id="submitCTA">
+        <input type="submit" value="Submit" id="worklogSubmit" />
+      </div>
+
+      <div id="totalWeeklyHoursWorked">
+        <h1 id="renderTotalResult" style="display: none"></h1>
+      </div>
+    </main>
+
+    <script src="./worklogScript.js"></script>
+  </body>
+</html>

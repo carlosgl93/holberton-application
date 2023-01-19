@@ -1,0 +1,119 @@
+/* body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #faf0ca;
+} */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong {
+  color: #1f7a8c;
+}
+
+#navigator {
+  display: flex;
+  justify-content: space-around;
+  background-color: #626c66;
+  border-radius: 0px 0px 20px 20px;
+}
+
+#navigator > ul {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style-type: none;
+}
+
+#navigator > ul > li > a {
+  text-decoration: none;
+  color: #f4d35e;
+  font-weight: bold;
+}
+
+main {
+  padding: 1%;
+}
+
+#main-title {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2vh;
+}
+
+#main-title > h1 {
+  margin-top: 1vh;
+}
+
+.span-bold {
+  color: #1f7a8c;
+}
+
+#instructions {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+  padding: 1vh 2vh 0 0;
+}
+
+#instructions > p {
+  padding: 0 25%;
+}
+
+#grid {
+  display: flex;
+  justify-content: center;
+  padding: 3vh 2vw;
+}
+
+th {
+  height: 5vh;
+}
+
+td {
+  align-items: baseline;
+  height: 30px;
+  width: 100px;
+  padding: 10px;
+}
+
+#daysRow {
+  padding: 50vh auto;
+}
+
+.weekDayTitle {
+  padding: 1vh auto;
+}
+
+#rows > td {
+  margin: 1vh 1vw;
+}
+
+.left-column {
+  width: 170px;
+  padding: 0;
+}
+
+#submitCTA {
+  text-align: center;
+}
+
+#totalWeeklyHoursWorked > h1 {
+  margin: 0;
+}
+
+#resetCTAContainer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
