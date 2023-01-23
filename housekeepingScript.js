@@ -219,6 +219,7 @@ calculateAssets = (unit) => {
 
 const formDiv = document.getElementById("form");
 const resultsDiv = document.getElementById("assetsToTake");
+const resetDiv = document.getElementById("resetFlow");
 let unorderedResultsList = document.getElementById("resultList");
 
 const formResults = () => {
@@ -234,7 +235,14 @@ const formResults = () => {
     `Units submitted: ${formValue}`
   );
   unitsSubmittedNode.appendChild(unitsSubmittedText);
-  resultsDiv.appendChild(unitsSubmittedNode);
+  resetDiv.appendChild(unitsSubmittedNode);
+  unitsSubmittedNode.id = "unitsSubmitted";
+
+  const resetCTA = document.createElement("input");
+  resetCTA.setAttribute("type", "button");
+  resetCTA.value = "Reset";
+  resetCTA.id = "resetCTA";
+  resetDiv.appendChild(resetCTA);
 
   const unitNumbers = formValue.split(" ");
   // ill convert the values to ints
@@ -394,10 +402,29 @@ const resetFlow = () => {
   // remove units submitted node
   const pElements = document.querySelectorAll("p");
 
-  if (pElements[1]) resultsDiv.removeChild(pElements[1]);
+  // if (pElements[1]) resultsDiv.removeChild(pElements[1]);
 
   resultsDiv.style.display = "none";
   formDiv.style.display = "block";
+
+  const unitsSubmitted = document.getElementById("unitsSubmitted");
+  const resetDiv = document.getElementById("resetFlow");
+  resetDiv.removeChild(unitsSubmitted);
+
+  // remove resetCTA
+  let resetCTA = document.getElementById("resetCTA");
+  while (resetCTA) {
+    resetDiv.removeChild(resetCTA);
+    resetCTA = document.getElementById("resetCTA");
+  }
+  // remove cards from results
+  const cards = document.getElementById("unitDetailsCardsContainer");
+  // mainElement.item.
+  let card = cards.lastElementChild;
+  while (card) {
+    cards.removeChild(card);
+    card = cards.lastElementChild;
+  }
 };
 
 const addCardsForUnits = (unitsArray) => {
@@ -405,6 +432,8 @@ const addCardsForUnits = (unitsArray) => {
 
   const cardContainer = document.getElementById("unitDetailsCardsContainer");
 
+  const bedsNode = document.createElement("h6");
+  bedsNode.textContent = "Beds:";
   unitsArray.forEach((unit) => {
     let newUnitCard = document.createElement("div");
     newUnitCard.setAttribute("class", "card");
@@ -413,6 +442,7 @@ const addCardsForUnits = (unitsArray) => {
     let newUnitTitle = document.createElement("h2");
     // console.log(newUnitTitle)
     newUnitTitle.innerHTML = `Unit ${unit.unitId}`;
+
     newUnitContent.appendChild(newUnitTitle);
 
     let newUnitBedrooms = document.createElement("ul");

@@ -74,6 +74,10 @@ input {
   justify-content: space-around;
 }
 
+#map > img {
+  max-height: 60vh;
+}
+
 /* #assetsResult {
   display: flex;
   flex-direction: column;

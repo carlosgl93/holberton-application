@@ -148,6 +148,16 @@ const calculateWorklog = () => {
     const finishWorkHour = parseInt(day.workFinishTime.split(":")[0]);
     const finishWorkMinutes = parseInt(day.workFinishTime.split(":")[1]);
 
+    if (!startWorkHour || !finishWorkHour) {
+      const totalTimeWorkedRow = document.getElementById("totalTimeWorked");
+      const totalTimeWorkedNode = document.createElement("td");
+      const totalTimeWorkedTextElement =
+        document.createTextNode(`You worked 0 hours`);
+      totalTimeWorkedNode.appendChild(totalTimeWorkedTextElement);
+      totalTimeWorkedRow.appendChild(totalTimeWorkedNode);
+      return day;
+    }
+
     if (!startLunchHour || !finishLunchHour) {
       let totalHoursWorked = finishWorkHour - startWorkHour;
       let totalMinutesWorked = finishWorkMinutes - startWorkMinutes;
