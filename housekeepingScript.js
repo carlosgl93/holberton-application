@@ -170,7 +170,8 @@ let finalResults = {
 };
 
 class Unit {
-  constructor(bedrooms, nBathrooms) {
+  constructor(unitId, bedrooms, nBathrooms) {
+    this.unitId = unitId;
     this.bedrooms = bedrooms;
     this.nBathrooms = nBathrooms;
   }
@@ -246,13 +247,19 @@ const formResults = () => {
     let foundUnit = hardCodedUnits.find((_u) => {
       return _u.unitNumber == u;
     });
-    const newUnit = new Unit(foundUnit.bedrooms, foundUnit.nBathrooms);
+    const newUnit = new Unit(
+      foundUnit.unitNumber,
+      foundUnit.bedrooms,
+      foundUnit.nBathrooms
+    );
     // Create new unit obj
     resultUnits = [...resultUnits, newUnit];
     // update resultObj
     calculateAssets(newUnit);
     return finalResults;
   });
+
+  console.log({ units });
 
   //   before displaying the results div, the results are appended.
 
@@ -338,9 +345,12 @@ const formResults = () => {
   detergentNode.appendChild(detergentTextNode);
   unorderedResultsList.appendChild(detergentNode);
   //   display results div:
-  resultsDiv.style.display = "block";
+  resultsDiv.style.display = "flex";
+  resultsDiv.style.flexDirection = "row";
 
   formDiv.style.display = "none";
+  console.log("addCards");
+  addCardsForUnits(resultUnits);
 };
 
 formEnter.addEventListener("click", (event) => {
@@ -386,23 +396,34 @@ const resetFlow = () => {
 
   if (pElements[1]) resultsDiv.removeChild(pElements[1]);
 
-  // if (resultsDiv.querySelectorAll('p')) {
-  //     const unitsEntered = resultsDiv.querySelectorAll('p')
-  //     resultsDiv.removeChild(unitsEntered)
-  // }
-  // const unitsSubmittedNode = document.getElementById('unitsEntered')
-
-  // resultsDiv.removeChild(unitsSubmittedNode)
-
   resultsDiv.style.display = "none";
   formDiv.style.display = "block";
 };
 
-// window.addEventListener("DOMContentLoaded", async (e) => {
-//   console.log("asdf");s
-//   const querySnapshot = await getResorts();
-//   console.log({ querySnapshot });
-//   querySnapshot.forEach((doc) => {
-//     console.log(doc.data());
-//   });
-// });
+const addCardsForUnits = (unitsArray) => {
+  console.log(unitsArray);
+
+  const cardContainer = document.getElementById("unitDetailsCardsContainer");
+
+  unitsArray.forEach((unit) => {
+    let newUnitCard = document.createElement("div");
+    newUnitCard.setAttribute("class", "card");
+    let newUnitContent = document.createElement("div");
+    newUnitContent.setAttribute("class", "card-content");
+    let newUnitTitle = document.createElement("h2");
+    // console.log(newUnitTitle)
+    newUnitTitle.innerHTML = `Unit ${unit.unitId}`;
+    newUnitContent.appendChild(newUnitTitle);
+
+    let newUnitBedrooms = document.createElement("ul");
+    unit.bedrooms.forEach((bed) => {
+      let bedLi = document.createElement("li");
+      bedLi.innerHTML = bed;
+      newUnitBedrooms.appendChild(bedLi);
+      newUnitContent.appendChild(bedLi);
+    });
+
+    newUnitCard.appendChild(newUnitContent);
+    cardContainer.appendChild(newUnitCard);
+  });
+};

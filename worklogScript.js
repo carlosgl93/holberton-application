@@ -10,10 +10,6 @@ class WorkedDay {
 const calculateWorklog = () => {
   let worklogValues = document.forms["worklogForm"];
 
-  console.log(typeof worklogValues);
-
-  console.log(worklogValues);
-
   //   workStartTime:
   const mondayStartTime = document.getElementById("mondayTime").value;
   const tuesdayStartTime = document.getElementById("tuesdayTime").value;
@@ -23,7 +19,6 @@ const calculateWorklog = () => {
   const saturdayStartTime = document.getElementById("saturdayTime").value;
   const sundayStartTime = document.getElementById("sundayTime").value;
 
-  console.log({ mondayStartTime });
   //   lunchStartTime
   const mondayLunchStartTime = document.getElementById("mondayLunchTime").value;
   const tuesdayLunchStartTime =
@@ -36,7 +31,6 @@ const calculateWorklog = () => {
   const saturdayLunchStartTime =
     document.getElementById("saturdayLunchTime").value;
   const sundayLunchStartTime = document.getElementById("sundayLunchTime").value;
-  console.log({ mondayLunchStartTime });
 
   //   lunchFinishTime
   const mondayLunchFinishTime = document.getElementById(
@@ -83,11 +77,6 @@ const calculateWorklog = () => {
   const sundayWorkFinishTime = document.getElementById(
     "sundayWorkFinishTime"
   ).value;
-
-  const lunchMinusStartTime = mondayLunchStartTime - mondayStartTime;
-  console.log({ lunchMinusStartTime });
-  const mondayStartTimeSplitted = mondayStartTime.split(":");
-  console.log(mondayStartTimeSplitted);
 
   const workedDays = [
     new WorkedDay(
@@ -147,24 +136,11 @@ const calculateWorklog = () => {
       previousResult = grandTotalResultsNode.lastElementChild;
     }
 
-    // if (grandTotalResultsNode.lastElementChild) {
-    //   console.log("ya corrio antes!, hay que borrar resultado anterior");
-    //   grandTotalResultsNode.removeChild(grandTotalResultsNode.lastElementChild);
-    //   // grandTotalResultsNode.removeChild(grandTotalResultsNode.childNodes[0]);
-    // }
-    console.log(grandTotalResultsNode);
     const startWorkHour = parseInt(day.workStartTime.split(":")[0]);
     const startWorkMinutes = parseInt(day.workStartTime.split(":")[1]);
 
     const startLunchHour = parseInt(day.lunchStartTime.split(":")[0]);
     const startLunchMinutes = parseInt(day.lunchStartTime.split(":")[1]);
-    console.log({ startLunchHour });
-
-    console.log("morningShiftHoursWorked", startLunchHour - startWorkHour);
-    console.log(
-      "morningShiftMinutesWorked",
-      startLunchMinutes - startWorkMinutes
-    );
 
     const finishLunchHour = parseInt(day.lunchFinishTime.split(":")[0]);
     const finishLunchMinutes = parseInt(day.lunchFinishTime.split(":")[1]);
@@ -176,37 +152,20 @@ const calculateWorklog = () => {
       let totalHoursWorked = finishWorkHour - startWorkHour;
       let totalMinutesWorked = finishWorkMinutes - startWorkMinutes;
 
-      console.log("no lunch hours worked", totalHoursWorked);
-      if (totalMinutesWorked >= 60) {
-        let surplusMinutes = totalMinutesWorked / 60;
-        console.log(surplusMinutes);
-        totalHoursWorked += surplusMinutes;
-        // if (surplusMinutes == 1) {
-        //   totalMinutesWorked = 0;
-        //   totalHoursWorked += 1;
-        // } else {
+      let surplusMinutes = totalMinutesWorked / 60;
 
-        //   totalMinutesWorked = 60 * surplusMinutes;
-        // }
-      }
-
-      if (totalMinutesWorked < 0)
-        totalMinutesWorked = 60 - totalMinutesWorked * -1;
-      day.totalTimeWorked = `${new String(totalHoursWorked)}:${new String(
-        totalMinutesWorked
-      )}`;
+      totalHoursWorked += surplusMinutes;
 
       const totalTimeWorkedRow = document.getElementById("totalTimeWorked");
       const totalTimeWorkedNode = document.createElement("td");
       const totalTimeWorkedTextElement = document.createTextNode(
-        `${totalHoursWorked} hours with ${totalMinutesWorked} minutes`
+        `You worked for ${totalHoursWorked} hours`
       );
       totalTimeWorkedNode.appendChild(totalTimeWorkedTextElement);
       totalTimeWorkedRow.appendChild(totalTimeWorkedNode);
 
       grandTotalHoursWorked = grandTotalHoursWorked + totalHoursWorked;
       grandTotalMinutesWorked += totalMinutesWorked;
-      console.log("grandTotalHoursWorked", grandTotalHoursWorked);
       return day;
     } else {
       const morningHoursWorked = startLunchHour - startWorkHour;
@@ -216,71 +175,24 @@ const calculateWorklog = () => {
 
       let totalMinutesWorked = morningMinutesWorked + afternoonMinutesWorked;
       let totalHoursWorked = morningHoursWorked + afternoonHoursWorked;
-      console.log("total minutes worked", totalMinutesWorked);
-      if (totalMinutesWorked >= 60) {
-        // si los minutos sumados dan mas o igual a 60 tengo que pasarlo a horas
-        let surplusMinutes = totalMinutesWorked / 60;
-        console.log(surplusMinutes);
-        totalHoursWorked += surplusMinutes;
-        // if (surplusMinutes == 1) {
-        //   totalMinutesWorked = 0;
-        // } else totalMinutesWorked = 60 * surplusMinutes;
-      } else if (totalMinutesWorked < 0) {
-        console.log("totalMinutesWorked before conversion", totalMinutesWorked);
-        totalMinutesWorked = 60 - totalMinutesWorked * -1;
-        console.log("totalMinutesWorked after conversion", totalMinutesWorked);
-        totalHoursWorked = totalHoursWorked - 1;
-      }
+      let surplusMinutes = totalMinutesWorked / 60;
+      totalHoursWorked += surplusMinutes;
 
-      day.totalTimeWorked = `${new String(totalHoursWorked)}:${new String(
-        totalMinutesWorked
-      )}`;
+      day.totalTimeWorked = `You worked for ${totalHoursWorked} hours`;
 
       const totalTimeWorkedRow = document.getElementById("totalTimeWorked");
       const totalTimeWorkedNode = document.createElement("td");
       const totalTimeWorkedTextElement = document.createTextNode(
-        `${totalHoursWorked} hours with ${totalMinutesWorked} minutes`
+        day.totalTimeWorked
       );
       totalTimeWorkedNode.appendChild(totalTimeWorkedTextElement);
       totalTimeWorkedRow.appendChild(totalTimeWorkedNode);
 
       grandTotalHoursWorked += totalHoursWorked;
-      grandTotalMinutesWorked += totalMinutesWorked;
-      console.log("grandTotalHoursWorked", grandTotalHoursWorked);
 
       return day;
     }
-
-    // if (totalMinutesWorked >= 60) {
-    //   let surplusMinutes = totalMinutesWorked / 60;
-    //   console.log(surplusMinutes);
-    //   totalHoursWorked += 1;
-    //   if (surplusMinutes == 1) {
-    //     totalMinutesWorked = 0;
-    //   } else totalMinutesWorked = 60 * surplusMinutes;
-    // }
-
-    // if (totalMinutesWorked < 0)
-    //   totalMinutesWorked = 60 - totalMinutesWorked * -1;
-    // day.totalTimeWorked = `${new String(totalHoursWorked)}:${new String(
-    //   totalMinutesWorked
-    // )}`;
-
-    // const totalTimeWorkedRow = document.getElementById("totalTimeWorked");
-    // const totalTimeWorkedNode = document.createElement("td");
-    // const totalTimeWorkedTextElement = document.createTextNode(
-    //   `Hours: ${totalHoursWorked} with ${totalMinutesWorked} minutes`
-    // );
-    // totalTimeWorkedNode.appendChild(totalTimeWorkedTextElement);
-    // totalTimeWorkedRow.appendChild(totalTimeWorkedNode);
-
-    // return day;
   });
-
-  if (grandTotalMinutesWorked > 60) {
-    let minutesSurplus = grandTotalMinutesWorked / 60;
-    grandTotalHoursWorked += minutesSurplus;
-  }
 
   const grandTotalResultsNode = document.getElementById("renderTotalResult");
   const grandTotalHoursWorkedTextNode = document.createTextNode(
@@ -288,12 +200,6 @@ const calculateWorklog = () => {
   );
   grandTotalResultsNode.appendChild(grandTotalHoursWorkedTextNode);
   grandTotalResultsNode.style.display = "block";
-
-  console.log("workedTimeCalculatedMap", workedTimeCalculated);
-  //   workedTimeCalculated
-
-  console.log(workedDays);
-  console.log(grandTotalResultsNode.childNodes);
 };
 
 const worklogCTA = document.getElementById("worklogSubmit");

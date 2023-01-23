@@ -27,7 +27,7 @@
     </header>
     <main>
       <div id="form">
-        <h3>Trolley Loader!</h3>
+        <h3>Trolley Loader! (Nimrod Resort)</h3>
         <div>
           <form name="unitsToClean" onsubmit="formResults()">
             <label for="whichUnits"
@@ -54,11 +54,20 @@
         </div>
       </div>
       <div id="assetsToTake">
-        <h2>You must load the trolley with the following items:</h2>
-        <ul id="resultList"></ul>
+        <div id="assetsResult">
+          <h2>You must load the trolley with the following items:</h2>
+          <ul id="resultList"></ul>
+        </div>
+        <div id="map">
+          <img src="../assets/nimrod-map" alt="Map of the resort" />
+        </div>
         <!-- <p id="unitsEntered"></p> -->
+      </div>
+      <div id="resetFlow">
         <input type="button" value="Reset" id="resetFlow" />
       </div>
+
+      <div id="unitDetailsCardsContainer"></div>
     </main>
 
     <script src="./housekeepingScript.js"></script>
