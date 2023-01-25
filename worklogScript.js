@@ -7,6 +7,8 @@ class WorkedDay {
   }
 }
 
+let workedDays;
+
 const calculateWorklog = () => {
   let worklogValues = document.forms["worklogForm"];
 
@@ -78,7 +80,7 @@ const calculateWorklog = () => {
     "sundayWorkFinishTime"
   ).value;
 
-  const workedDays = [
+  workedDays = [
     new WorkedDay(
       mondayStartTime,
       mondayLunchStartTime,
@@ -155,6 +157,7 @@ const calculateWorklog = () => {
         document.createTextNode(`You worked 0 hours`);
       totalTimeWorkedNode.appendChild(totalTimeWorkedTextElement);
       totalTimeWorkedRow.appendChild(totalTimeWorkedNode);
+      day.totalTimeWorked = 0;
       return day;
     }
 
@@ -169,13 +172,15 @@ const calculateWorklog = () => {
       const totalTimeWorkedRow = document.getElementById("totalTimeWorked");
       const totalTimeWorkedNode = document.createElement("td");
       const totalTimeWorkedTextElement = document.createTextNode(
-        `You worked for ${totalHoursWorked} hours`
+        `You worked for ${totalHoursWorked.toFixed(2)} hours`
       );
       totalTimeWorkedNode.appendChild(totalTimeWorkedTextElement);
       totalTimeWorkedRow.appendChild(totalTimeWorkedNode);
 
       grandTotalHoursWorked = grandTotalHoursWorked + totalHoursWorked;
       grandTotalMinutesWorked += totalMinutesWorked;
+      day.totalTimeWorked = totalHoursWorked;
+
       return day;
     } else {
       const morningHoursWorked = startLunchHour - startWorkHour;
@@ -199,6 +204,7 @@ const calculateWorklog = () => {
       totalTimeWorkedRow.appendChild(totalTimeWorkedNode);
 
       grandTotalHoursWorked += totalHoursWorked;
+      day.totalTimeWorked = totalHoursWorked;
 
       return day;
     }
@@ -210,6 +216,8 @@ const calculateWorklog = () => {
   );
   grandTotalResultsNode.appendChild(grandTotalHoursWorkedTextNode);
   grandTotalResultsNode.style.display = "block";
+  // console.log(workedDays);
+  return workedDays;
 };
 
 const worklogCTA = document.getElementById("worklogSubmit");
@@ -220,13 +228,68 @@ resetCTA.addEventListener("click", (event) => {
   location.reload();
 });
 
+const submitCTA = document.getElementById("submitCTA");
+
 worklogCTA.addEventListener("click", (event) => {
   event.preventDefault();
   // window.scrollTo(0, Position(document.getElementById("worklogSubmit")));
   calculateWorklog();
-  const submitCTA = document.getElementById("submitCTA");
   submitCTA.style.display = "none";
   const resetCTA = document.getElementById("resetCTAContainer");
 
   resetCTA.style.display = "block";
+});
+
+const toogleRateInput = document.getElementById("toogleRateInput");
+const calculatePaymentForm = document.getElementById("calculatePaymentForm");
+
+const activateRate = () => {
+  const showRateForm = toogleRateInput.checked;
+  if (showRateForm) {
+    calculatePaymentForm.style.display = "block";
+    submitCTA.style.display = "none";
+  } else calculatePaymentForm.style.display = "none";
+};
+
+toogleRateInput.addEventListener("click", () => activateRate());
+
+const calculatePaymentCTA = document.getElementById("calculatePaymentCTA");
+
+const calculatePayment = () => {
+  // calculateWorklog();
+  console.log(document.forms[1][0].value);
+  const regularRate = document.forms[1][0].value;
+  const saturdayRate = document.forms[1][1].value;
+  const sundayRate = document.forms[1][2].value;
+  const publicHolidayRate = document.forms[1][3].value;
+  let totalRegularWage = 0,
+    saturdayWage = 0,
+    sundayWage = 0,
+    holidayWage = 0;
+  console.log(workedDays);
+  workedDays.forEach((day, i) => {
+    if (i <= 4) {
+      console.log("week day"), day;
+      totalRegularWage += day.totalHoursWorked * regularRate;
+      console.log(day.totalHoursWorked);
+      console.log(regularRate);
+      console.log(totalRegularWage);
+    } else if (i == 5) {
+      console.log("saturday");
+      saturdayWage += day.totalHoursWorked * saturdayRate;
+    } else if (i == 6) {
+      console.log("sunday");
+      sundayWage += day.totalHoursWorked * sundayRate;
+    }
+  });
+  console.log({ regularRate });
+  console.log({ saturdayRate });
+  console.log({ sundayRate });
+};
+
+calculatePaymentCTA.addEventListener("click", (event) => {
+  event.preventDefault();
+  calculateWorklog();
+  activateRate();
+  calculatePayment();
 });

@@ -117,3 +117,34 @@ td {
   justify-content: center;
   text-align: center;
 }
+
+#renderTotalResult {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#calculatePaymentForm {
+  display: none;
+}
+
+#paymentFormHeader {
+  display: flex;
+  justify-content: center;
+}
+
+#paymentInputs {
+  display: flex;
+  flex-direction: column;
+  padding: 5vh 5vw;
+}
+
+#paymentInputs > input {
+  max-width: 20%;
+  margin: 1vh 0;
+}
+
+#calculatePaymentContainer {
+  display: flex;
+  justify-content: center;
+}

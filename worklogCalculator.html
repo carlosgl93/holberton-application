@@ -43,13 +43,6 @@
             only enter work starting time and work finishing time
           </span>
         </p>
-        <!-- <p>
-          <span class="span-bold" style="font-weight: bold"
-            >If you did not work for a day enter 00:00 am for all the times for
-            that day.</span
-          >
-          (working on this feature)
-        </p> -->
       </div>
 
       <form id="grid" name="worklogForm" onsubmit="calculateWorklog()">
@@ -305,16 +298,63 @@
           </tr>
         </table>
       </form>
+      <div id="toggleRates">
+        <label for="toogleRateInput">
+          Do you want to calculate your weekly wage too?
+        </label>
+        <input
+          type="checkbox"
+          value="false"
+          name="toogleRateInput"
+          id="toogleRateInput"
+        />
+      </div>
       <div id="submitCTA">
         <input type="submit" value="Submit" id="worklogSubmit" />
       </div>
 
       <div id="totalWeeklyHoursWorked">
-        <h1 id="renderTotalResult" style="display: none"></h1>
+        <h2 id="renderTotalResult" style="display: none"></h2>
       </div>
-       <div id='resetCTAContainer' style="display:none">
+      <div id="resetCTAContainer" style="display: none">
         <input type="submit" value="Reset" id="resetCTA" />
-      <div>
+      </div>
+
+      <form
+        onsubmit="calculatePayment()"
+        id="calculatePaymentForm"
+        autocomplete="off"
+      >
+        <div id="paymentFormHeader">
+          <h4>
+            Please insert your hourly rate for monday to friday, saturday,
+            sunday and public holiday rates
+          </h4>
+        </div>
+        <div id="paymentInputs">
+          <label for="regularRate">Monday - Friday Rate</label>
+          <input type="number" name="regularRate" id="regularRate" step="0.1" />
+          <label for="saturdayRate">Saturday Rate</label>
+          <input
+            type="number"
+            name="saturdayRate"
+            id="saturdayRate"
+            step="0.1"
+          />
+          <label for="sundayRate">Sunday Rate</label>
+          <input type="number" name="sundayRate" id="sundayRate" step="0.1" />
+          <label for="publicHolidayRate">Public Holiday Rate</label>
+          <input
+            type="number"
+            name="publicHolidayRate"
+            id="publicHolidayRate"
+            step="0.1"
+          />
+        </div>
+        <div id="calculatePaymentContainer">
+          <input type="button" value="Submit" id="calculatePaymentCTA" />
+        </div>
+      </form>
     </main>
 
     <script src="./worklogScript.js"></script>
